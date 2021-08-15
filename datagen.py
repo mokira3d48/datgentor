@@ -6,7 +6,7 @@ class DataGenerator(object):
     """
 
     def __init__(self, alphabet=None, dataset=None):
-        # super(DataGenerator).__init__(self);
+        super(DataGenerator, self).__init__();
         
         # INITIALISATION DU GENERATEUR
         # ============================
@@ -17,11 +17,34 @@ class DataGenerator(object):
         self._alphabet = alphabet;
         self._dataset  = dataset;
 
+        # on verifie les donnees d'entrees
+        self.__check();
+    
+
+
+    # @property
+    # def set_alphabet(self, value):
+    #     self._alphabet = value;
+    #     self.__check();
+    
+
+
+    # @property
+    # def set_dataset(self, value):
+    #     self._dataset = value;
+    #     self.__check();
+
+
+
+
+    
+    def __check(self):
         # si aucun des deux n'est definit, alors 
         # on leve l'exception
         if (self._alphabet is None or self._alphabet == '') \
             and (self._dataset is None or len(self._dataset) == 0):
             raise ValueError("`alphabet` or `dataset` is not defined !");
+
 
 
 

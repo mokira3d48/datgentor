@@ -1,3 +1,4 @@
+
 import datagen
 import reldatagen
 from settings.default import GENERATORS
@@ -11,8 +12,8 @@ from settings.default import GENERATORS
 
 schemas = {
     "likes": [
-        {"field_name": "name",   "dtype": "_users"},
-        {"field_name": "name",   "dtype": "_videos"},
+        {"field_name": "user",   "dtype": "_users"},
+        {"field_name": "vname",   "dtype": "_videos"},
         {"field_name": "comment",   "dtype": "TEXT"},
     ],
     "videos" : [
@@ -27,6 +28,14 @@ schemas = {
     ],
 }
 
-rdg = reldatagen.RelationalDataGenerator(schema=schemas);
+GENERATORS['PASSWORD'] = GENERATORS['INTEGER'];
+GENERATORS['USERNAME'] = GENERATORS['KEY'];
+GENERATORS['EMAIL']    = GENERATORS['KEY'];
+GENERATORS['NAME']     = GENERATORS['KEY'];
+
+rdg = reldatagen.RelationalDataGenerator(schema=schemas, generators=GENERATORS);
+
+rdg.COUNTS_VALUE['likes'] = 5;
 
 rdg.generate();
+rdg.printlog();

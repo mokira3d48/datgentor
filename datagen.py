@@ -17,6 +17,9 @@ class DataGenerator(object):
         self._alphabet = alphabet;
         self._dataset  = dataset;
 
+        # on definit la longueur par defaut des donnees generees
+        self._default_count = 8;
+
         # on verifie les donnees d'entrees
         self.__check();
     
@@ -34,6 +37,21 @@ class DataGenerator(object):
     #     self._dataset = value;
     #     self.__check();
 
+    def set_alphabet(self, alphabet):
+        self._alphabet = alphabet;
+        self.__check();
+
+
+
+
+    def set_dataset(self, dataset):
+        self._dataset = dataset;
+        self.__check();
+
+
+
+    def set_default_count(self, value):
+        self._default_count = value;
 
 
 

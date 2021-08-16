@@ -252,7 +252,9 @@ class RelationalDataGenerator(object):
                 # on ajoute la ligne de donnees
                 self._data[struct['struct_name']].append(row);
 
-        print(self._data);
+        # print(self._data);
+
+        return self._data;
 
 
 

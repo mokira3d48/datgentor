@@ -1,6 +1,7 @@
 
 import datagen
 import reldatagen
+import eloqdatagen
 from settings.default import GENERATORS
 
 # gen = datagen.DataGenerator(dataset=['mokira', 'therin', 'archille']);
@@ -33,9 +34,14 @@ GENERATORS['USERNAME'] = GENERATORS['KEY'];
 GENERATORS['EMAIL']    = GENERATORS['KEY'];
 GENERATORS['NAME']     = GENERATORS['KEY'];
 
-rdg = reldatagen.RelationalDataGenerator(schema=schemas, generators=GENERATORS);
+# rdg = reldatagen.RelationalDataGenerator(schema=schemas, generators=GENERATORS);
+rdg = eloqdatagen.EloquantDataGenerator(schema=schemas, generators=GENERATORS);
 
 rdg.COUNTS_VALUE['likes'] = 5;
 
-rdg.generate();
+print(rdg.generate());
+print("\n");
+rdg.printcode();
+print("\n");
 rdg.printlog();
+

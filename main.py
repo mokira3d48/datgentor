@@ -19,11 +19,11 @@ schemas = {
     ],
     "videos" : [
         {"field_name": "name",   "dtype": "NAME", "id": True},
-        {"field_name": "owner",  "dtype": "_users"},
+        {"field_name": "owner",  "dtype": "_users", "nullable": True},
     ],
     "users": [
         {"field_name": "email",     "dtype": "EMAIL", "id":True},
-        {"field_name": "name",      "dtype": "USERNAME"},
+        {"field_name": "name",      "dtype": "USERNAME", "nullable": True},
         {"field_name": "password",  "dtype": "PASSWORD"},
         
     ],

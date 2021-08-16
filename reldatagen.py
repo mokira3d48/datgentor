@@ -184,6 +184,7 @@ class RelationalDataGenerator(object):
 
                 for field in fields:
                     field_name = field['field_name'];
+                    nullable   = self.__nullable(field);
 
                     # on recupere si possible le nom de la structure
                     # reference par le champ
@@ -198,6 +199,11 @@ class RelationalDataGenerator(object):
                     # si un generateur est specifie pour ce type, alors
                     if dtype in self._generators:
                         gen = self._generators[dtype];
+
+                        # si le champs peut prendre la valeur Null, alors
+                        # on configure le generateur pour qu'il puisse generer
+                        # aussi des valeurs NULL de temps en temps
+                        gen.nullable = nullable;
 
                         # on fait une etude suivant trois cas
                         # si le champs n'est ni un identifiant, ni reference, alors
@@ -239,7 +245,7 @@ class RelationalDataGenerator(object):
                             gen.set_default_count(1);
 
                             # on genere une valeur pour cette colonne
-                            row[field_name] = gen()[0];
+                            row[field_name] = gen(nullable=nullable);
 
                     else:
                         # si aucun generateur n'est specifie pour ce type 
@@ -262,6 +268,13 @@ class RelationalDataGenerator(object):
     @staticmethod
     def __is_id(field):
         return 'id' in field;
+    
+
+
+
+    @staticmethod
+    def __nullable(field):
+        return 'nullable' in field;
 
 
 
@@ -317,8 +330,6 @@ class RelationalDataGenerator(object):
         else:
             return None;
 
-
-        
 
 
     

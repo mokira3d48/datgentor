@@ -5,7 +5,7 @@ class DataGenerator(object):
     """ Generateur de donnees
     """
 
-    def __init__(self, alphabet=None, dataset=None):
+    def __init__(self, alphabet=None, dataset=None, outtype=str):
         super(DataGenerator, self).__init__();
         
         # INITIALISATION DU GENERATEUR
@@ -16,6 +16,12 @@ class DataGenerator(object):
         # exception de type ValueError
         self._alphabet = alphabet;
         self._dataset  = dataset;
+
+        # on definit la valeur generee par le generateur
+        self.nullable = False;
+
+        # on definit le type de sortie des donnees
+        self._outtype = outtype;
 
         # on definit la longueur par defaut des donnees generees
         self._default_count = 8;
@@ -43,7 +49,6 @@ class DataGenerator(object):
 
 
 
-
     def set_dataset(self, dataset):
         self._dataset = dataset;
         self.__check();
@@ -65,11 +70,21 @@ class DataGenerator(object):
 
 
 
-
-
-    def __call__(self, count=8):
+    def __call__(self, count=None, nullable=False):
         """ Algorithme de generation de jeux de donnees aleatoire
         """
+        # si la valeur de  `count` n'est pas definie, alors
+        # on prend la valeur par defaut
+        if count is None:
+            count = self._default_count;
+        
+        # si nullable n'est pas True, alors 
+        # on prend la valeur du generateur
+        if not nullable:
+            nullable = self.nullable;
+
+        # on definit la donnee de sortie
+        outdata = None;
 
         # on verifie si c'est la dataset qui est definit, ou
         # si c'est l'alphabet qui est definit.
@@ -77,13 +92,15 @@ class DataGenerator(object):
         # on selectionne `count` unites de donnees de facon aleatoire
         # sinon, si c'est l'alphabet qui est definit, alors
         # on genere `count` caracteres de facon aleatoire.
-        
+
         if self._dataset is not None:
             # si `count` >= 0 alors,
             # on releve des echantillon de `count` donnees
+            # si `count` = 1, alors on prend directement le premier element
             if count >= 0:
-                return self.__get_rand_values(self._dataset, count);
-            
+                outdata = self.__get_rand_values(self._dataset, count);
+                outdata = outdata if count > 1 else outdata[0];
+
             else:
                 # sinon,
                 # on leve une exception de type ValueError
@@ -95,13 +112,23 @@ class DataGenerator(object):
             # on releve des echantillon de k caracteres qu'on retourne
             # sous forme de chaine de caracteres
             if type(self._alphabet) is list:
-                return ''.join(self.__get_rand_values(self._alphabet, count));
-            
+                outdata = self.__format_to_outtype(''.join(self.__get_rand_values(self._alphabet, count)));
+
             elif type(self._alphabet) is str:
                 # sinon, si l'alphabet est une chaine de caracteres, alors
                 # on eclate cette chaine en un tableau de caracteres, avant
                 # de composer la valeur
-                return ''.join(self.__get_rand_values([c for c in self._alphabet], count));
+                outdata = self.__format_to_outtype(''.join(self.__get_rand_values([c for c in self._alphabet], count)));
+        
+        # si le resultat de sortie peut etre Null, alors
+        # on fait un choix binaire et aleatoire entre le resultat et
+        # la valeur Null
+        if nullable:
+            return random.choice([outdata, None]);
+        else:
+            # dans le cas contraire,alors
+            # on retourne directement le resultat
+            return outdata;
     
 
 
@@ -127,6 +154,19 @@ class DataGenerator(object):
 
         # on retourne les elements selectionnes
         return selected_elems;
+    
+
+
+    def __format_to_outtype(self, data):
+        """ Programme de formatage des donnees generees dans le type
+            de sortie
+        """
+        # si la donnee generee n'est pas de type sequentiel, alors
+        # on convertie cette derniere dans le type de sortie,
+        # si le type de sortie a belle et bien ete specifie
+        if type(data) in [int, str]:
+            return (self._outtype)(data) if self._outtype is not None else data;
+
 
 
 

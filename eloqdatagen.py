@@ -57,7 +57,8 @@ class EloquantDataGenerator(rdg.RelationalDataGenerator):
             struct_name = struct['struct_name'];
             self._add_code_line("use App\Models\{};".format(struct_name));
 
-        # on saute une ligne dans le code source        
+        # on import le programme de hashage de Laravel
+        self._add_code_line("use Illuminate\Support\Facades\Hash;");
         self._add_code_line("\n");
 
 
@@ -84,7 +85,13 @@ class EloquantDataGenerator(rdg.RelationalDataGenerator):
                 # on renseigne les champs du models eloquant
                 for column, value in row.items():
                     if value is not None:
-                        self._add_code_line(f"${var_name}->{column} = \"{value}\"");
+                        if column != 'password':
+                            if type(value) is str:
+                                self._add_code_line(f"${var_name}->{column} = \"{value}\";");
+                            else:
+                                self._add_code_line(f"${var_name}->{column} = {value};");
+                        else:
+                            self._add_code_line(f"${var_name}->{column} = Hash::make(\"{value}\");");
                     else:
                         self._add_code_line(f"${var_name}->{column} = NULL;");
 

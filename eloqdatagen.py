@@ -1,5 +1,34 @@
-
+import re
 import reldatagen as rdg
+
+
+
+def getEloquantModelName(struct_name=""):
+    """ Programme qui permet de transformer les nom des tables
+        en nom de models sous le format Eloquant
+    """
+    # on met la premiere lettre en majuscule
+    eloquant_class_name = struct_name.capitalize();
+
+    # si le nom de la tables se termine par 'ies', alors
+    # on supprime les trois dernieres lettres
+    # et on ajoute le caractere 'y' a la fin
+    if re.search('ies$', eloquant_class_name):
+        eloquant_class_name = eloquant_class_name[:-3];
+        eloquant_class_name = f"{eloquant_class_name}y";
+
+    elif re.search('s$', eloquant_class_name):
+        # sinon, 
+        # si le nom de la table se termine tous simplement par le 
+        # caractere 's', alors
+        # on supprime le dernier caractere a la fin.
+        eloquant_class_name = eloquant_class_name[:-1];
+    
+    return eloquant_class_name;
+
+
+
+
 
 
 class EloquantDataGenerator(rdg.RelationalDataGenerator):
@@ -55,7 +84,7 @@ class EloquantDataGenerator(rdg.RelationalDataGenerator):
         # on import le model Eloquant correspondant
         for struct in self._ordered_list:
             struct_name = struct['struct_name'];
-            self._add_code_line("use App\Models\{};".format(struct_name));
+            self._add_code_line("use App\Models\{};".format(getEloquantModelName(struct_name)));
 
         # on import le programme de hashage de Laravel
         self._add_code_line("use Illuminate\Support\Facades\Hash;");
@@ -79,7 +108,7 @@ class EloquantDataGenerator(rdg.RelationalDataGenerator):
             # pour chaque ligne de donnees generees pour cette structure
             # on instancie le models
             for row in rows:
-                self._add_code_line(f"${var_name} = new {struct_name};");
+                self._add_code_line(f"${var_name} = new {getEloquantModelName(struct_name)};");
                 
                 # pour chaque colonne de la ligne
                 # on renseigne les champs du models eloquant

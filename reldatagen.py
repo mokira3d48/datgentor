@@ -70,8 +70,8 @@ class RelationalDataGenerator(object):
         # on definit une liste ordonnees de schemas de donnees
         self._ordered_list = [];
 
-        print("schema: ", [struct for struct in self._schema]);
-        print("ordered_list: ", [struct for struct in self._ordered_list]);
+        # print("schema: ", [struct for struct in self._schema]);
+        # print("ordered_list: ", [struct for struct in self._ordered_list]);
 
         # tanqu'il y a de structure dans le dictionnaire des schemas
         # on clonne l'etat du schema actuel

@@ -39,9 +39,10 @@ rdg = eloqdatagen.EloquantDataGenerator(schema=schemas, generators=GENERATORS);
 
 rdg.COUNTS_VALUE['likes'] = 5;
 
-print(rdg.generate());
+rdg.generate();
+# print(rdg.generate());
 print("\n");
 rdg.printcode();
 print("\n");
-rdg.printlog();
+# rdg.printlog();
 

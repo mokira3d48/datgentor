@@ -27,7 +27,7 @@ class AnagramDataGenerator(dtg.DataGenerator):
 
 
 
-    def __call__(self, count=None, nullable=False):
+    def __call__(self, count=4, nullable=False):
         """ Algorithme de generation de jeux de donnees aleatoire
         """
         # on definit la donnee textuelle a generer

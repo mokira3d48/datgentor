@@ -14,13 +14,27 @@ class UsernameGenerator(anagramdgen.AnagramDataGenerator):
         # on cree un generateur de numero
         self._numgen = datagen.DataGenerator(alphabet="0123456789");
 
+        # on definit le nombre de chiffres
+        self._digit_count = 3;
 
 
-    def __call__(self, count1=4, count2=3, nullable=False):
+
+    def setDigitCount(self, value):
+        if value >= 0:
+            self._digit_count = value;
+
+
+
+    def __call__(self, count1=None, count2=None, nullable=False):
         """ Algorithme de generation de nom d'utilisateur
         """
         # on genere un mot avec le super generateur
         word = super().__call__(count=count1, nullable=nullable);
+
+        # si le nombre de chiffre specifie en argument est None, alors
+        # on utilise le nombre de chiffres par defaut du generateur
+        if count2 is None:
+            count2 = self._digit_count;
 
         # si le mot n'est pas null, alors
         # on genere un numero

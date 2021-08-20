@@ -14,7 +14,7 @@ class EmailGenerator(usernamegen.UsernameGenerator):
 
 
 
-    def __call__(self, count1=4, count2=3, nullable=False):
+    def __call__(self, count1=None, count2=None, nullable=False):
         """ Algorithme de generation de nom
         """
         # on genere un mot avec le super generateur
@@ -22,7 +22,7 @@ class EmailGenerator(usernamegen.UsernameGenerator):
 
         # si le mot est Null, alors
         if username is not None:
-            return f"{username}@mail.com";
+            return f"{username}@email.com";
         else:
             return None;
 

@@ -3,12 +3,33 @@ import reldatagen as rdg
 
 
 
+def strToCamelCase(text):
+    """ Programme qui permet de transformer une chaine de caracteres
+        en chaine camelcase.
+    """
+
+    # on definit la chaine de caracteres de sortie
+    out_text = "";
+
+    # on separe la chaine de caracteres en fonction des '_'
+    # ensuite on met en camelcase chaque element de la liste
+    # enfin on join tous ces elements en chaine de caracteres
+    splited_str = re.split("_", text);
+    out_text    = "".join([strc.capitalize() for strc in splited_str]);
+
+    # on retourne le resultat trouve
+    return out_text;
+
+
+
+
+
 def getEloquantModelName(struct_name=""):
     """ Programme qui permet de transformer les nom des tables
         en nom de models sous le format Eloquant
     """
     # on met la premiere lettre en majuscule
-    eloquant_class_name = struct_name.capitalize();
+    eloquant_class_name = strToCamelCase(struct_name);
 
     # si le nom de la tables se termine par 'ies', alors
     # on supprime les trois dernieres lettres
@@ -27,27 +48,7 @@ def getEloquantModelName(struct_name=""):
     return eloquant_class_name;
 
 
-
-
-
-def strToCamelCase(text):
-    """ Programme qui permet de transformer une chaine de caracteres
-        en chaine camelcase.
-    """
-
-    # on definit la chaine de caracteres de sortie
-    out_text = "";
-
-    # on parcour chaque caractere de la chaine
-    # si on trouve le caractere '_', alors
-    # on transforme verifie si le caractere suivant
-    # est parmit [a-z] ou [A-Z] ou [0-9]
-    for character in text:
-        if character != '_':
-            if re.search('s$', character):
-
-
-
+# print(getEloquantModelName("currencies"));
 
 
 class EloquantDataGenerator(rdg.RelationalDataGenerator):

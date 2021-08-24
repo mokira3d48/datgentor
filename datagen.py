@@ -24,7 +24,7 @@ class DataGenerator(object):
         self._outtype = outtype;
 
         # on definit la longueur par defaut des donnees generees
-        self._default_count = 4;
+        self._default_count = 1;
 
         # on verifie les donnees d'entrees
         # self.__check();
@@ -62,12 +62,12 @@ class DataGenerator(object):
 
 
 
-    def __check(self):
-        # si aucun des deux n'est definit, alors 
-        # on leve l'exception
-        if (self._alphabet is None or self._alphabet == '') \
-            and (self._dataset is None or len(self._dataset) == 0):
-            raise ValueError("`alphabet` or `dataset` is not defined !");
+    # def __check(self):
+    #     # si aucun des deux n'est definit, alors 
+    #     # on leve l'exception
+    #     if (self._alphabet is None or self._alphabet == '') \
+    #         and (self._dataset is None or len(self._dataset) == 0):
+    #         raise ValueError("`alphabet` or `dataset` is not defined !");
 
 
 

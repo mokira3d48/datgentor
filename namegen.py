@@ -17,6 +17,10 @@ class NameGenerator(anagramdgen.AnagramDataGenerator):
     def __call__(self, count=None, nullable=False):
         """ Algorithme de generation de nom
         """
+        # si le nombre de donnees a generees
+        if count is None:
+            count = self._default_count;
+
         # on genere un mot avec le super generateur
         return super().__call__(count=count, nullable=nullable);
 

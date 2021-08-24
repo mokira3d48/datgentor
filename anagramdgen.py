@@ -62,12 +62,12 @@ class AnagramDataGenerator(dtg.DataGenerator):
                 # si on commence par un consorne, alors
                 # on utilise le generateur numeros 2
                 if choice == 'c':
-                    word = f"{word}{congen(1)}{voygen(1)}";
+                    word = "{}{}{}".format(word, congen(1), voygen(1));
 
                 else:
                     # sinon
                     # on utilise le generateur 4
-                    word = f"{word}{voygen(1)}{congen(1)}";
+                    word = "{}{}{}".format(word, voygen(1), congen(1));
             
             # une fois les donnees sont generees,
             # si les mots generes doivent etre en CamelCase, alors

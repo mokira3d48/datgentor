@@ -28,6 +28,15 @@ class UsernameGenerator(anagramdgen.AnagramDataGenerator):
     def __call__(self, count1=None, count2=None, nullable=False):
         """ Algorithme de generation de nom d'utilisateur
         """
+        # si le nombre de donnees a generees
+        if count1 is None:
+            count1 = self._default_count;
+        
+        # si le nombre de donnees a generees
+        if count1 is None:
+            count1 = self._default_count;
+
+
         # on genere un mot avec le super generateur
         word = super().__call__(count=count1, nullable=nullable);
 
@@ -40,7 +49,7 @@ class UsernameGenerator(anagramdgen.AnagramDataGenerator):
         # on genere un numero
         if word is not None:
             num = self._numgen(count2);
-            word = f"{word}{num}";
+            word = "{}{}".format(word, num);
 
             # on retourne 
             return word;

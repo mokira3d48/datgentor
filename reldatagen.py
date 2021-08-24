@@ -7,7 +7,7 @@ class RelationalDataGenerator(object):
 
     # CONFIGURATION GLOBAL
     # ====================
-    DEFAULT_DATA_COUNT = 2;
+    DEFAULT_DATA_COUNT = 100;
     COUNTS_VALUE = {};
 
 
@@ -242,7 +242,7 @@ class RelationalDataGenerator(object):
 
                             # on definit la longueur par defaut des donnees generees par
                             # le generateur
-                            gen.set_default_count(1);
+                            gen.setCount(1);
 
                             # on genere une valeur pour cette colonne
                             row[field_name] = gen(nullable=nullable);

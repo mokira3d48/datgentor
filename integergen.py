@@ -22,13 +22,13 @@ class IntegerGenerator(datagen.DataGenerator):
 
 
 
-    def __check(self):
-        # si aucun des deux n'est definit, alors 
-        # on leve l'exception
-        if (self._alphabet is None or self._alphabet == '') \
-                and (self._dataset is None or len(self._dataset) == 0) \
-                and (self._intervalle is None or len(self._intervalle) == 0):
-            raise ValueError("`alphabet` or `dataset` is not defined !");
+    # def __check(self):
+    #     # si aucun des deux n'est definit, alors 
+    #     # on leve l'exception
+    #     if (self._alphabet is None or self._alphabet == '') \
+    #             and (self._dataset is None or len(self._dataset) == 0) \
+    #             and (self._intervalle is None or len(self._intervalle) == 0):
+    #         raise ValueError("`alphabet` or `dataset` is not defined !");
 
 
 
@@ -37,7 +37,7 @@ class IntegerGenerator(datagen.DataGenerator):
         """
         # number = super().__call__(count=count, nullable=nullable);
         # on verifie si une des entrees de donnees sont renseignees
-        self.__check();
+        # self.__check();
 
         if not nullable:
             nullable = self.nullable;
@@ -71,14 +71,14 @@ class IntegerGenerator(datagen.DataGenerator):
             numbers = [];
 
             for i in range(count):
-                numbers.append(random.choice(dataset));
+                numbers.append((random.choice(dataset)));
 
             return numbers;
 
         else:
             # sinon,
             # on retourne une liste de resultats
-            return random.choice(dataset);
+            return (random.choice(dataset));
 
 
 

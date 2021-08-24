@@ -15,7 +15,7 @@ def getEloquantModelName(struct_name=""):
     # et on ajoute le caractere 'y' a la fin
     if re.search('ies$', eloquant_class_name):
         eloquant_class_name = eloquant_class_name[:-3];
-        eloquant_class_name = f"{eloquant_class_name}y";
+        eloquant_class_name = "{}y".format(eloquant_class_name);
 
     elif re.search('s$', eloquant_class_name):
         # sinon, 
@@ -26,6 +26,25 @@ def getEloquantModelName(struct_name=""):
     
     return eloquant_class_name;
 
+
+
+
+
+def strToCamelCase(text):
+    """ Programme qui permet de transformer une chaine de caracteres
+        en chaine camelcase.
+    """
+
+    # on definit la chaine de caracteres de sortie
+    out_text = "";
+
+    # on parcour chaque caractere de la chaine
+    # si on trouve le caractere '_', alors
+    # on transforme verifie si le caractere suivant
+    # est parmit [a-z] ou [A-Z] ou [0-9]
+    for character in text:
+        if character != '_':
+            if re.search('s$', character):
 
 
 
@@ -108,7 +127,7 @@ class EloquantDataGenerator(rdg.RelationalDataGenerator):
             # pour chaque ligne de donnees generees pour cette structure
             # on instancie le models
             for row in rows:
-                self._add_code_line(f"${var_name} = new {getEloquantModelName(struct_name)};");
+                self._add_code_line("${} = new {};".format(var_name, getEloquantModelName(struct_name)));
                 
                 # pour chaque colonne de la ligne
                 # on renseigne les champs du models eloquant
@@ -116,16 +135,16 @@ class EloquantDataGenerator(rdg.RelationalDataGenerator):
                     if value is not None:
                         if column != 'password':
                             if type(value) is str:
-                                self._add_code_line(f"${var_name}->{column} = \"{value}\";");
+                                self._add_code_line("${}->{} = \"{}\";".format(var_name, column, value));
                             else:
-                                self._add_code_line(f"${var_name}->{column} = {value};");
+                                self._add_code_line("${}->{} = {};".format(var_name, column, value));
                         else:
-                            self._add_code_line(f"${var_name}->{column} = Hash::make(\"{value}\");");
+                            self._add_code_line("${}->{} = Hash::make(\"{}\");".format(var_name, column, value));
                     else:
-                        self._add_code_line(f"${var_name}->{column} = NULL;");
+                        self._add_code_line("${}->{} = NULL;".format(var_name, column));
 
                 # on sauvegarde cette ligne de donnees
-                self._add_code_line(f"${var_name}->save();");
+                self._add_code_line("${}->save();".format(var_name));
                 self._add_code_line("\n");
 
 

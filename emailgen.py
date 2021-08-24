@@ -22,7 +22,7 @@ class EmailGenerator(usernamegen.UsernameGenerator):
 
         # si le mot est Null, alors
         if username is not None:
-            return f"{username}@email.com";
+            return "{}@email.com".format(username);
         else:
             return None;
 

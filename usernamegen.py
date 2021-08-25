@@ -33,8 +33,8 @@ class UsernameGenerator(anagramdgen.AnagramDataGenerator):
             count1 = self._default_count;
         
         # si le nombre de donnees a generees
-        if count1 is None:
-            count1 = self._default_count;
+        if count2 is None:
+            count2 = self._digit_count;
 
 
         # on genere un mot avec le super generateur

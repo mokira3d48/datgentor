@@ -7,7 +7,7 @@ class RelationalDataGenerator(object):
 
     # CONFIGURATION GLOBAL
     # ====================
-    DEFAULT_DATA_COUNT = 100;
+    DEFAULT_DATA_COUNT = 10;
     COUNTS_VALUE = {};
 
 

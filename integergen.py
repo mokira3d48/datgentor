@@ -50,7 +50,11 @@ class IntegerGenerator(datagen.DataGenerator):
         if self._intervalle is not None:
             numbers = [];
             numbers.extend(range(self._intervalle[0], (self._intervalle[1] + 1)));
-            numbers.append(None);
+
+            # si la valeur du generateur peut etre null, alors
+            # on ajoute la valeur null a la liste
+            if nullable:
+                numbers.append(None);
 
             # print(numbers);
 

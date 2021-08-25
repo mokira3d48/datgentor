@@ -219,7 +219,12 @@ class RelationalDataGenerator(object):
                             # le nom du champs;
                             # et le generateur
                             row[field_name] = self.__generate_id(struct_name, field_name, gen);
-                    
+
+                        # on ramene l'attribut 'nullable' du generateur a False
+                        # pour ne pas gene les autres champ du meme type que celui-ci
+                        # mais qui sont non-nul
+                        gen.nullable = False;
+
                     elif ref_struct_name is not None:
                         # si c'est uniquement un champs qui referencie une autre
                         # et que ce champs n'est pas un ID, alors
@@ -246,6 +251,12 @@ class RelationalDataGenerator(object):
 
                             # on genere une valeur pour cette colonne
                             row[field_name] = gen(nullable=nullable);
+                        
+                        else:
+                            # si aucun generateur n'est specifie pour ce type 
+                            # de donnees, alors
+                            # on cree un log
+                            self._logs.append(f"[ERROR] \t  No generator defined for {dtype} data type.");
 
                     else:
                         # si aucun generateur n'est specifie pour ce type 

@@ -48,7 +48,6 @@ def getEloquantModelName(struct_name=""):
     return eloquant_class_name;
 
 
-# print(getEloquantModelName("currencies"));
 
 
 class EloquantDataGenerator(rdg.RelationalDataGenerator):
